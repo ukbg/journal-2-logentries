@@ -2,12 +2,12 @@ package logentries
 
 import (
 	"crypto/tls"
-	"crypto/x509"
+
 	"errors"
 	"fmt"
 )
 
-const DefaultUrl = "api.logentries.com:20000"
+const DefaultUrl = "data.logentries.com:443"
 
 type Client struct {
 	conn  *tls.Conn
@@ -39,7 +39,7 @@ func (c *Client) connect() error {
 		c.conn.Close()
 		c.conn = nil
 	}
-	conn, err := tls.Dial("tcp", c.url, &tls.Config{RootCAs: c.pool})
+	conn, err := tls.Dial("tcp", "data.logentries.com:443", &tls.Config{})
 	if err != nil {
 		return err
 	}
